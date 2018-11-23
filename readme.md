@@ -1,11 +1,13 @@
 # RDP Reader
 
-Lê os arquivos .rdp de uma pasta e imprime os dados dos arquivos em sequencia.
+LÃª os arquivos .rdp de uma pasta e imprime os dados dos arquivos em sequencia.
 
-Na pasta que contém os RDP's
+Exemplo:
 
-Use RdpReader
+Sendo que vocÃª baixou o RdpReader.exe na pasta Temp onde tem o arquivos .rdp faÃ§a:
+
+c:\temp\>RdpReader
 
 Or
 
-Use RdpReader > Lista.txt
+c:\temp\>RdpReader > Lista.txt
