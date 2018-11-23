@@ -20,40 +20,33 @@ func main() {
 	files, err := ioutil.ReadDir(folder)
 	if err != nil {
 		log.Fatal(err)
-
 	}
 
+	// Escaneia a pasta corrente.
 	for _, file := range files {
 
 		if filepath.Ext(file.Name()) == ".rdp" {
 
-			full, _ := os.Open(folder + "/" + file.Name())
+			ip = ""
+			user = "Não tem"
 
+			rdpRunes := []rune(file.Name())
+			rdp = string(rdpRunes[0 : len(rdpRunes)-4])
+
+			full, _ := os.Open(folder + "/" + file.Name())
 			scanner := bufio.NewScanner(full)
 
+			// Escaneia as linhas do arquivo corrente.
 			for scanner.Scan() {
 
 				line := strings.Replace(scanner.Text(), string(0), "", -1)
 
 				if strings.Contains(line, "full address") {
 
-					rdpRunes := []rune(file.Name())
-					if len(rdpRunes) > 3 {
-						rdp = string(rdpRunes[0 : len(rdpRunes)-4])
-					} else {
-						rdp = ""
-					}
-
 					runes := []rune(line)
 					if len(runes) > 15 {
-						ip = string(runes[15:])
-					} else {
-						ip = ""
+						ip = string(runes[15 : len(runes)-1])
 					}
-
-					fmt.Println("")
-					fmt.Println("WTS:", rdp)
-					fmt.Println("IP:", ip)
 
 				}
 
@@ -62,15 +55,14 @@ func main() {
 					runesUser := []rune(line)
 					if len(runesUser) > 11 {
 						user = string(runesUser[11:])
-					} else {
-						user = ""
 					}
-
-					fmt.Println("USER:", user)
 
 				}
 
 			}
+
+			fmt.Println("")
+			fmt.Printf("WTS: %v IP: %v USER: %v", rdp, ip, user)
 
 		}
 	}
